@@ -37,6 +37,7 @@ import uuid
 from PIL import Image
 from functools import wraps
 from yargi_integration import yargi_integration
+from uyap_integration_advanced import UYAPManager, UyapFile
 from io import BytesIO
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -205,6 +206,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'in
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 app.config['ORNEK_DILEKCE_UPLOAD_FOLDER'] = os.path.join(app.config['UPLOAD_FOLDER'], 'ornek_dilekceler') # Yeni eklendi
+app.config['UYAP_UPLOAD_FOLDER'] = os.path.join(app.config['UPLOAD_FOLDER'], 'uyap') # UYAP dosyaları için
 # CSRF için WTF_CSRF_ENABLED=True (varsayılan olarak True'dur ama açıkça belirtmek iyi olabilir)
 app.config['WTF_CSRF_ENABLED'] = True
 # SECRET_KEY zaten yukarıda tanımlı, CSRF için de kullanılır.
@@ -1162,6 +1164,7 @@ import uuid
 from PIL import Image
 from functools import wraps
 from yargi_integration import yargi_integration
+from uyap_integration_advanced import UYAPManager, UyapFile
 from io import BytesIO
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -1330,6 +1333,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'in
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 app.config['ORNEK_DILEKCE_UPLOAD_FOLDER'] = os.path.join(app.config['UPLOAD_FOLDER'], 'ornek_dilekceler') # Yeni eklendi
+app.config['UYAP_UPLOAD_FOLDER'] = os.path.join(app.config['UPLOAD_FOLDER'], 'uyap') # UYAP dosyaları için
 # CSRF için WTF_CSRF_ENABLED=True (varsayılan olarak True'dur ama açıkça belirtmek iyi olabilir)
 app.config['WTF_CSRF_ENABLED'] = True
 # SECRET_KEY zaten yukarıda tanımlı, CSRF için de kullanılır.
@@ -2560,6 +2564,7 @@ import uuid
 from PIL import Image
 from functools import wraps
 from yargi_integration import yargi_integration
+from uyap_integration_advanced import UYAPManager, UyapFile
 from io import BytesIO
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -2728,6 +2733,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'in
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 app.config['ORNEK_DILEKCE_UPLOAD_FOLDER'] = os.path.join(app.config['UPLOAD_FOLDER'], 'ornek_dilekceler') # Yeni eklendi
+app.config['UYAP_UPLOAD_FOLDER'] = os.path.join(app.config['UPLOAD_FOLDER'], 'uyap') # UYAP dosyaları için
 # CSRF için WTF_CSRF_ENABLED=True (varsayılan olarak True'dur ama açıkça belirtmek iyi olabilir)
 app.config['WTF_CSRF_ENABLED'] = True
 # SECRET_KEY zaten yukarıda tanımlı, CSRF için de kullanılır.
@@ -3685,6 +3691,7 @@ import uuid
 from PIL import Image
 from functools import wraps
 from yargi_integration import yargi_integration
+from uyap_integration_advanced import UYAPManager, UyapFile
 from io import BytesIO
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -3853,6 +3860,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'in
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 app.config['ORNEK_DILEKCE_UPLOAD_FOLDER'] = os.path.join(app.config['UPLOAD_FOLDER'], 'ornek_dilekceler') # Yeni eklendi
+app.config['UYAP_UPLOAD_FOLDER'] = os.path.join(app.config['UPLOAD_FOLDER'], 'uyap') # UYAP dosyaları için
 # CSRF için WTF_CSRF_ENABLED=True (varsayılan olarak True'dur ama açıkça belirtmek iyi olabilir)
 app.config['WTF_CSRF_ENABLED'] = True
 # SECRET_KEY zaten yukarıda tanımlı, CSRF için de kullanılır.
@@ -11391,8 +11399,458 @@ def test_route():
     print("TEST ROUTE CALLED!!!")
     return "Test route works!"
 
+# =============== UYAP API ENDPOINTS ===============
+
+@app.route('/api/uyap/files', methods=['POST'])
+@login_required
+@csrf.exempt
+def api_uyap_search_files():
+    """
+    UYAP'tan dosyaları filtreleye göre arar - Gerçek UYAP entegrasyonu
+    """
+    try:
+        filters = request.json
+        print(f"UYAP API çağrısı alındı. Filtreler: {filters}")
+        
+        # UYAP Manager instance oluştur
+        uyap_manager = UYAPManager()
+        
+        # UYAP'a bağlan ve dosyaları ara
+        print("UYAP'a bağlanılıyor...")
+        
+        # Filtrelerle dosya arama
+        files = uyap_manager.search_files_with_filters(filters)
+        
+        # UyapFile objelerini dictionary'ye çevir
+        files_dict = []
+        for file in files:
+            files_dict.append({
+                'id': file.id,
+                'esas_no': file.esas_no,
+                'mahkeme': file.mahkeme,
+                'yargi_turu': file.yargi_turu,
+                'yargi_birimi': file.yargi_birimi,
+                'durum': file.durum,
+                'acilis_tarihi': file.acilis_tarihi,
+                'taraflar': file.taraflar
+            })
+        
+        print(f"UYAP'tan {len(files_dict)} dosya bulundu")
+        
+        return jsonify({
+            'success': True,
+            'files': files_dict,
+            'count': len(files_dict),
+            'message': f'UYAP\'tan {len(files_dict)} dosya getirildi'
+        })
+        
+    except Exception as e:
+        print(f"UYAP API hatası: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': f'UYAP bağlantı hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/uyap/file/<file_id>/details', methods=['GET'])
+@login_required
+@csrf.exempt
+def api_uyap_file_details(file_id):
+    """
+    Belirli bir UYAP dosyasının detaylarını çeker - Gerçek UYAP entegrasyonu
+    """
+    try:
+        # Request'ten esas_no'yu al
+        esas_no = request.args.get('esas_no')
+        if not esas_no:
+            return jsonify({
+                'success': False,
+                'error': 'Esas numarası gerekli'
+            }), 400
+        
+        print(f"Dosya detayı istendi - File ID: {file_id}, Esas No: {esas_no}")
+        
+        # UYAP Manager instance oluştur
+        uyap_manager = UYAPManager()
+        
+        # Dosya detaylarını getir
+        details = uyap_manager.get_file_complete_details(file_id)
+        
+        print(f"UYAP'tan dosya detayları getirildi: {esas_no}")
+        
+        return jsonify({
+            'success': True,
+            'details': details,
+            'message': 'UYAP\'tan dosya detayları getirildi'
+        })
+        
+    except Exception as e:
+        print(f"Dosya detay hatası: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': f'UYAP detay hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/uyap/import', methods=['POST'])
+@login_required
+@csrf.exempt
+def api_uyap_import_file():
+    """
+    UYAP'tan dosyayı LawAutomation'a aktarır - Gerçek UYAP entegrasyonu
+    """
+    try:
+        data = request.json
+        file_id = data.get('file_id')
+        settings = data.get('settings', {})
+        
+        if not file_id:
+            return jsonify({
+                'success': False,
+                'error': 'Dosya ID gerekli'
+            }), 400
+        
+        print(f"Dosya aktarım isteği - File ID: {file_id}, Settings: {settings}")
+        
+        # UYAP Manager instance oluştur
+        uyap_manager = UYAPManager()
+        
+        # Dosya detaylarını UYAP'tan getir
+        print("UYAP'tan dosya detayları çekiliyor...")
+        file_details = uyap_manager.get_file_complete_details(file_id)
+        
+        # LawAutomation veritabanına aktar
+        result = import_uyap_file_to_database(file_details, settings, current_user.id)
+        
+        return jsonify({
+            'success': result['success'],
+            'file_info': result.get('file_info', {}),
+            'error': result.get('error'),
+            'message': 'UYAP\'tan başarıyla aktarıldı' if result['success'] else 'Aktarım başarısız'
+        })
+        
+    except Exception as e:
+        print(f"Import hatası: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': f'UYAP import hatası: {str(e)}'
+        }), 500
+
+@app.route('/api/uyap/documents/download', methods=['POST'])
+@login_required
+@csrf.exempt
+def api_uyap_download_documents():
+    """
+    UYAP'tan evrakları indirir
+    """
+    try:
+        data = request.json
+        file_id = data.get('file_id')
+        documents = data.get('documents', [])
+        settings = data.get('settings', {})
+        
+        if not file_id or not documents:
+            return jsonify({
+                'success': False,
+                'error': 'Dosya ID ve evrak listesi gerekli'
+            }), 400
+        
+        # UYAP manager instance oluştur
+        uyap_manager = UYAPManager()
+        
+        # Hedef klasörü oluştur
+        year = datetime.now().year
+        target_folder = os.path.join(app.config['UPLOAD_FOLDER'], 'uyap', str(year), file_id)
+        os.makedirs(target_folder, exist_ok=True)
+        
+        print(f"UYAP'tan evrak indiriliyor - File ID: {file_id}, Target: {target_folder}")
+        
+        # Evrakları UYAP'tan indir
+        downloaded_files = []
+        for doc in documents:
+            try:
+                doc_paths = uyap_manager.download_file_documents([doc], target_folder)
+                if doc_paths:
+                    downloaded_files.extend(doc_paths)
+                    print(f"İndirildi: {doc.get('name', 'Unknown')}")
+            except Exception as e:
+                print(f"Evrak indirilemedi {doc.get('name', 'Unknown')}: {str(e)}")
+                continue
+        
+        return jsonify({
+            'success': True,
+            'downloaded_files': downloaded_files,
+            'download_count': len(downloaded_files),
+            'message': f'UYAP\'tan {len(downloaded_files)} evrak indirildi'
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+def import_uyap_file_to_database(file_details, settings, user_id):
+    """
+    UYAP dosyasını LawAutomation veritabanına aktarır
+    
+    Args:
+        file_details: UYAP'tan alınan dosya detayları
+        settings: Aktarım ayarları
+        user_id: İşlemi yapan kullanıcı ID'si
+        
+    Returns:
+        dict: Aktarım sonucu
+    """
+    try:
+        print(f"Veritabanına aktarım başlıyor - User ID: {user_id}")
+        print(f"File details: {file_details}")
+        print(f"Settings: {settings}")
+        
+        # Temel bilgileri al
+        basic_info = file_details.get('basic_info', {})
+        parties = file_details.get('parties', [])
+        expenses = file_details.get('expenses', [])
+        documents = file_details.get('documents', [])
+        
+        # Dosyayı kontrol et (idempotent upsert için)
+        existing_case = CaseFile.query.filter_by(
+            case_number=basic_info.get('esas_no', ''),
+            year=basic_info.get('year', datetime.now().year),
+            courthouse=basic_info.get('mahkeme', '')
+        ).first()
+        
+        if existing_case and not settings.get('overwrite_existing', False):
+            return {
+                'success': False,
+                'error': 'Dosya zaten mevcut. Üzerine yazma seçeneği seçilmedi.'
+            }
+        
+        # Yeni dosya oluştur veya mevcut dosyayı güncelle
+        case_file = existing_case if existing_case else CaseFile()
+        
+        # Temel bilgileri güncelle (eğer ayarlarda etkinse)
+        if settings.get('include_basic_info', True):
+            case_file.file_type = basic_info.get('yargi_turu', 'hukuk').lower()
+            case_file.courthouse = basic_info.get('mahkeme', '')
+            case_file.department = basic_info.get('yargi_birimi', '')
+            case_file.year = basic_info.get('year', datetime.now().year)
+            case_file.case_number = basic_info.get('esas_no', '')
+            case_file.status = basic_info.get('durum', 'Aktif')
+            
+            # Tarih parsing'i güvenli hale getir
+            acilis_tarihi = basic_info.get('acilis_tarihi')
+            if acilis_tarihi:
+                try:
+                    case_file.open_date = datetime.strptime(acilis_tarihi, '%d.%m.%Y').date()
+                except ValueError:
+                    case_file.open_date = datetime.now().date()
+            else:
+                case_file.open_date = datetime.now().date()
+                
+            case_file.user_id = user_id
+            
+        # Taraf bilgilerini güncelle (eğer ayarlarda etkinse)
+        if settings.get('include_parties', True) and parties:
+            # Parties'leri dict'e çevir (mock veri dict formatında geliyor)
+            for i, party in enumerate(parties):
+                if isinstance(party, dict):
+                    if i == 0:  # İlk taraf müvekkil
+                        case_file.client_name = party.get('name', '')
+                        case_file.client_capacity = party.get('capacity', '')
+                        case_file.client_identity_number = party.get('identity_number', '')
+                        
+                        # Entity type'ı belirle
+                        identity = party.get('identity_number', '')
+                        if len(identity) == 11 and identity.isdigit():
+                            case_file.client_entity_type = 'person'
+                        else:
+                            case_file.client_entity_type = 'company'
+                    elif i == 1:  # İkinci taraf karşı taraf
+                        case_file.opponent_name = party.get('name', '')
+                        case_file.opponent_capacity = party.get('capacity', '')
+                        case_file.opponent_identity_number = party.get('identity_number', '')
+                        
+                        identity = party.get('identity_number', '')
+                        if len(identity) == 11 and identity.isdigit():
+                            case_file.opponent_entity_type = 'person'
+                        else:
+                            case_file.opponent_entity_type = 'company'
+                        
+                        # Vekil bilgisi varsa
+                        if party.get('lawyer'):
+                            case_file.opponent_lawyer = party.get('lawyer', '')
+                            case_file.opponent_lawyer_bar_number = party.get('lawyer_bar_number', '')
+        
+        # Veritabanına kaydet
+        if not existing_case:
+            db.session.add(case_file)
+        
+        db.session.commit()
+        print(f"Dosya kaydedildi - ID: {case_file.id}")
+        
+        # Masrafları ekle (eğer ayarlarda etkinse)
+        if settings.get('include_expenses', False) and expenses:
+            add_uyap_expenses(case_file.id, expenses, settings.get('expense_conflict', 'skip'))
+        
+        # Evrak bilgilerini kaydet (eğer ayarlarda etkinse)
+        if settings.get('include_documents', False) and documents:
+            save_uyap_documents(case_file.id, documents, user_id)
+        
+        # Activity log ekle
+        activity = ActivityLog(
+            activity_type='uyap_import',
+            description=f'UYAP\'tan dosya aktarıldı: {case_file.case_number}',
+            details={
+                'esas_no': case_file.case_number,
+                'mahkeme': case_file.courthouse,
+                'import_settings': settings
+            },
+            user_id=user_id,
+            related_case_id=case_file.id
+        )
+        db.session.add(activity)
+        db.session.commit()
+        
+        print(f"Aktarım başarılı - Case ID: {case_file.id}")
+        
+        return {
+            'success': True,
+            'file_info': {
+                'id': case_file.id,
+                'esas_no': case_file.case_number,
+                'mahkeme': case_file.courthouse
+            }
+        }
+        
+    except Exception as e:
+        print(f"Aktarım hatası: {str(e)}")
+        db.session.rollback()
+        return {
+            'success': False,
+            'error': str(e)
+        }
+
+def add_uyap_expenses(case_id, expenses, conflict_strategy):
+    """UYAP masraflarını ekler - Mock veriler için uyarlanmış"""
+    try:
+        print(f"Masraf ekleme başlıyor - Case ID: {case_id}, Expense count: {len(expenses)}")
+        
+        for expense_data in expenses:
+            # Mock veri dict formatında geliyor
+            if isinstance(expense_data, dict):
+                expense_type = expense_data.get('expense_type', '')
+                amount = expense_data.get('amount', 0)
+                date_str = expense_data.get('date', '')
+                is_paid = expense_data.get('is_paid', False)
+                description = expense_data.get('description', '')
+                
+                # Tarih parsing
+                try:
+                    expense_date = datetime.strptime(date_str, '%d.%m.%Y').date()
+                except ValueError:
+                    expense_date = datetime.now().date()
+                
+                # Mevcut masrafi kontrol et
+                existing_expense = Expense.query.filter_by(
+                    case_id=case_id,
+                    expense_type=expense_type,
+                    date=expense_date
+                ).first()
+                
+                if existing_expense:
+                    if conflict_strategy == 'skip':
+                        print(f"Masraf atlandı: {expense_type}")
+                        continue
+                    elif conflict_strategy == 'overwrite':
+                        existing_expense.amount = amount
+                        existing_expense.description = description
+                        existing_expense.is_paid = is_paid
+                        print(f"Masraf güncellendi: {expense_type}")
+                    # create-new için yeni kayıt oluşturulacak
+                
+                if conflict_strategy == 'create-new' or not existing_expense:
+                    expense = Expense(
+                        case_id=case_id,
+                        expense_type=expense_type,
+                        amount=amount,
+                        date=expense_date,
+                        is_paid=is_paid,
+                        description=description
+                    )
+                    db.session.add(expense)
+                    print(f"Yeni masraf eklendi: {expense_type} - {amount} TL")
+        
+        db.session.commit()
+        print("Masraflar başarıyla kaydedildi")
+        
+    except Exception as e:
+        print(f"Masraf ekleme hatası: {str(e)}")
+        db.session.rollback()
+
+def save_uyap_documents(case_id, documents, user_id):
+    """UYAP evrak bilgilerini kaydeder - Mock veriler için uyarlanmış"""
+    try:
+        print(f"Evrak kaydetme başlıyor - Case ID: {case_id}, Document count: {len(documents)}")
+        
+        for doc_data in documents:
+            # Mock veri dict formatında geliyor
+            if isinstance(doc_data, dict):
+                doc_name = doc_data.get('name', 'Unknown_Document.pdf')
+                doc_type = doc_data.get('type', 'PDF')
+            else:
+                # Eğer dataclass ise (gerçek UYAP'tan geliyorsa)
+                doc_name = getattr(doc_data, 'name', 'Unknown_Document.pdf')
+                doc_type = getattr(doc_data, 'type', 'PDF')
+            
+            # Dosya adını güvenli hale getir
+            safe_filename = secure_filename(doc_name)
+            
+            # Mevcut evrak kontrolü (duplicate önleme)
+            existing_doc = Document.query.filter_by(
+                case_id=case_id,
+                filename=safe_filename
+            ).first()
+            
+            if existing_doc:
+                print(f"Evrak zaten mevcut, atlandı: {safe_filename}")
+                continue
+            
+            # Evrak kaydını oluştur
+            document = Document(
+                case_id=case_id,
+                document_type=f'UYAP {doc_type}',
+                filename=safe_filename,
+                filepath=f"uyap/{datetime.now().year}/{case_id}/{safe_filename}",
+                user_id=user_id
+            )
+            db.session.add(document)
+            print(f"Evrak kaydedildi: {safe_filename}")
+        
+        db.session.commit()
+        print("Evraklar başarıyla kaydedildi")
+        
+    except Exception as e:
+        print(f"Evrak kaydetme hatası: {str(e)}")
+        db.session.rollback()
+
+def ensure_upload_directories():
+    """
+    Gerekli upload dizinlerinin var olduğundan emin olur
+    """
+    directories = [
+        app.config['UPLOAD_FOLDER'],
+        app.config['ORNEK_DILEKCE_UPLOAD_FOLDER'],
+        app.config['UYAP_UPLOAD_FOLDER']
+    ]
+    
+    for directory in directories:
+        os.makedirs(directory, exist_ok=True)
+        print(f"Upload dizini kontrol edildi: {directory}")
+
 if __name__ == '__main__':
     with app.app_context():
+        # Gerekli upload dizinlerini oluştur
+        ensure_upload_directories()
+        
         # Veritabanı tablolarının var olup olmadığını kontrol et,
         # yoksa oluştur (Mevcut verileri silmez)
         db.create_all()

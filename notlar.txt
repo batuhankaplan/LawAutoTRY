@@ -5,3 +5,178 @@ YAPILACAKLAR:
 4) Avukat sözleşmesi sayfasına isim soy isimden sonra bir de tc ekleme boxu gelsin. tc no girelim ve müvekkil isminden hemen sonra (T.C. Kimlik No:) şeklinde yer alsın.
 HATA VE BUGLAR:
 -
+Son kalınan yer: Malesef şöyle bir sıkıntımız var. Uyaptan dosya aktar modalında listele dememize gerek olmadan başka bir şekilde bu uyap bağlantısının bu modalla kurulması gerekiyor belki dosya ekle sayfasındaki uyaptan aktar butonuna basar basmaz bir   
+  bağlantı kurulmalı sonra bu modal açılmalı vs. ayrıca şuan modal kesinlikle uyapla senkronize çalışamıyor. gördüğüm kadarıyla ben manuel olarak uyapa giriş yaptıktan sonra modal hiçbirşey yapamıyor dosyaları bulamıyor arayamıyor bile.    
+  sorunları çözelim. PS C:\Users\PC\Desktop\PythonVScode\2\LawAutomation\firstwebsite> python app.py
+  C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\fpdf\__init__.py:40: UserWarning: You have both PyFPDF & fpdf2 installed. Both packages cannot be installed at the same time as they share the same module namespace. To only keep 
+  fpdf2, run: pip uninstall --yes pypdf && pip install --upgrade fpdf2
+    warnings.warn(
+  Upload dizini kontrol edildi: uploads
+  Upload dizini kontrol edildi: uploads/ornek_dilekceler
+  Upload dizini kontrol edildi: uploads/uyap
+  Admin kullanıcısı zaten mevcut.
+   * Serving Flask app 'app'
+   * Debug mode: on
+  2025-08-20 14:25:31,983 - werkzeug - INFO - WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+   * Running on http://127.0.0.1:5000
+  2025-08-20 14:25:31,983 - werkzeug - INFO - Press CTRL+C to quit
+  2025-08-20 14:25:31,985 - werkzeug - INFO -  * Restarting with stat
+  C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\fpdf\__init__.py:40: UserWarning: You have both PyFPDF & fpdf2 installed. Both packages cannot be installed at the same time as they share the same module namespace. To only keep 
+  fpdf2, run: pip uninstall --yes pypdf && pip install --upgrade fpdf2
+    warnings.warn(
+  Upload dizini kontrol edildi: uploads
+  Upload dizini kontrol edildi: uploads/ornek_dilekceler
+  Upload dizini kontrol edildi: uploads/uyap
+  Admin kullanıcısı zaten mevcut.
+  2025-08-20 14:25:35,991 - werkzeug - WARNING -  * Debugger is active!
+  2025-08-20 14:25:35,995 - werkzeug - INFO -  * Debugger PIN: 174-279-670
+  2025-08-20 14:25:40,043 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:40] "GET / HTTP/1.1" 302 -
+  ==================================================
+  LOGIN FUNCTION CALLED!!!
+  ==================================================
+  DEBUG LOGIN FUNCTION CALLED - Method: GET
+  DEBUG - Rendering auth.html
+  2025-08-20 14:25:40,082 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:40] "GET /login HTTP/1.1" 200 -
+  2025-08-20 14:25:40,268 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:40] "GET /static/images/logo.png HTTP/1.1" 200 -
+  2025-08-20 14:25:40,271 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:40] "GET /static/style.css HTTP/1.1" 200 -
+  2025-08-20 14:25:40,790 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:40] "GET /favicon.ico HTTP/1.1" 302 -    
+  ==================================================
+  LOGIN FUNCTION CALLED!!!
+  ==================================================
+  DEBUG LOGIN FUNCTION CALLED - Method: GET
+  DEBUG - Rendering auth.html
+  2025-08-20 14:25:40,801 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:40] "GET /login HTTP/1.1" 200 -
+  ==================================================
+  LOGIN FUNCTION CALLED!!!
+  ==================================================
+  DEBUG LOGIN FUNCTION CALLED - Method: POST
+  DEBUG - POST request received
+  DEBUG LOGIN - Email: avbatuhankaplan@hotmail.com
+  DEBUG LOGIN - Password provided: True
+  DEBUG LOGIN - TOTP code: None
+  DEBUG LOGIN - CSRF token: IjQ0MTFkMzY5ZTNmY2FlYmYxNjYxMWIyMzg1MDI1NmUyMWZkYjY5M2Ei.aKWwtA.atE7jWGspQZ9q6W6ITxZHlBZQXQ 
+  DEBUG LOGIN - Session before: {'_fresh': False, 'csrf_token': '4411d369e3fcaebf16611b23850256e21fdb693a'}
+  DEBUG LOGIN - Form data: {'csrf_token': 'IjQ0MTFkMzY5ZTNmY2FlYmYxNjYxMWIyMzg1MDI1NmUyMWZkYjY5M2Ei.aKWwtA.atE7jWGspQZ9q6W6ITxZHlBZQXQ', 'email': 'avbatuhankaplan@hotmail.com', 'password': 'admin123'}
+  DEBUG - Normal email/password doğrulama
+  DEBUG - Password check passed for user: avbatuhankaplan@hotmail.com
+  DEBUG - 2FA required, setting session
+  DEBUG - Session after 2FA setup: {'_fresh': False, 'csrf_token': '4411d369e3fcaebf16611b23850256e21fdb693a', 'temp_user_id': 1, 'next_page': '/'}
+  2025-08-20 14:25:43,738 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:43] "POST /login HTTP/1.1" 200 -
+  2025-08-20 14:25:43,772 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:43] "GET /static/style.css HTTP/1.1" 304 -
+  2025-08-20 14:25:43,773 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:43] "GET /static/images/logo.png HTTP/1.1" 304 -
+  2025-08-20 14:25:43,932 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:43] "GET /favicon.ico HTTP/1.1" 302 -    
+  ==================================================
+  LOGIN FUNCTION CALLED!!!
+  ==================================================
+  DEBUG LOGIN FUNCTION CALLED - Method: GET
+  DEBUG - Rendering auth.html
+  2025-08-20 14:25:43,978 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:43] "GET /login HTTP/1.1" 200 -
+  ==================================================
+  LOGIN FUNCTION CALLED!!!
+  ==================================================
+  DEBUG LOGIN FUNCTION CALLED - Method: POST
+  DEBUG - POST request received
+  DEBUG LOGIN - Email: avbatuhankaplan@hotmail.com
+  DEBUG LOGIN - Password provided: True
+  DEBUG LOGIN - TOTP code: 032947
+  DEBUG LOGIN - CSRF token: IjQ0MTFkMzY5ZTNmY2FlYmYxNjYxMWIyMzg1MDI1NmUyMWZkYjY5M2Ei.aKWwtw.QANB1T11ONxtTud5WKHn_ETMZcI 
+  DEBUG LOGIN - Session before: {'_fresh': False, 'csrf_token': '4411d369e3fcaebf16611b23850256e21fdb693a', 'next_page': '/', 'temp_user_id': 1}
+  DEBUG LOGIN - Form data: {'csrf_token': 'IjQ0MTFkMzY5ZTNmY2FlYmYxNjYxMWIyMzg1MDI1NmUyMWZkYjY5M2Ei.aKWwtw.QANB1T11ONxtTud5WKHn_ETMZcI', 'email': 'avbatuhankaplan@hotmail.com', 'password': '', 'totp_code': '032947'}
+  DEBUG - 2FA doğrulama aşaması
+  C:\Users\PC\Desktop\PythonVScode\2\LawAutomation\firstwebsite\app.py:11307: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now
+  available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)      
+    user = User.query.get(session['temp_user_id'])
+  DEBUG - User found: True
+  DEBUG - Secret exists, verifying code 032947
+  DEBUG - Current time: 032947
+  DEBUG - Verification result: True
+  DEBUG - 2FA verification successful, logging in user
+  C:\Users\PC\Desktop\PythonVScode\2\LawAutomation\firstwebsite\app.py:4361: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available
+   as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    user = User.query.get(user_id)
+  DEBUG - Redirecting to: /
+  2025-08-20 14:25:52,881 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:52] "POST /login HTTP/1.1" 302 -
+  C:\Users\PC\Desktop\PythonVScode\2\LawAutomation\firstwebsite\app.py:3895: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available
+   as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    return User.query.get(int(user_id))
+  C:\Users\PC\Desktop\PythonVScode\2\LawAutomation\firstwebsite\app.py:4387: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in   
+  UTC: datetime.datetime.now(datetime.UTC).
+    db.func.datetime(CalendarEvent.date, CalendarEvent.time) >= datetime.utcnow(),
+  2025-08-20 14:25:52,974 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:52] "GET / HTTP/1.1" 200 -
+  2025-08-20 14:25:53,032 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:53] "GET /static/css/style.css HTTP/1.1" 200 -
+  2025-08-20 14:25:53,035 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:53] "GET /static/images/logo.png HTTP/1.1" 304 -
+  2025-08-20 14:25:53,037 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:53] "GET /static/style.css HTTP/1.1" 304 -
+  2025-08-20 14:25:53,039 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:53] "GET /static/images/pp.png HTTP/1.1" 200 -
+  2025-08-20 14:25:53,429 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:53] "GET /favicon.ico HTTP/1.1" 404 -    
+  İstanbul şehir listesinde mevcut.
+  2025-08-20 14:25:55,201 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:55] "GET /dosya_ekle HTTP/1.1" 200 -     
+  2025-08-20 14:25:55,246 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:55] "GET /static/style.css HTTP/1.1" 304 -
+  2025-08-20 14:25:55,255 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:55] "GET /static/images/pp.png HTTP/1.1" 304 -
+  2025-08-20 14:25:55,259 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:55] "GET /static/css/style.css HTTP/1.1" 304 -
+  2025-08-20 14:25:55,270 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:25:55] "GET /static/images/logo.png HTTP/1.1" 304 -
+  UYAP API çağrısı alındı. Filtreler: {'yargi_turu': 'Hukuk', 'yargi_birimi': '', 'dosya_durumu': '', 'start_date': '', 'end_date': '', 'search': ''}
+  UYAP'a bağlanılıyor...
+  2025-08-20 14:25:59,316 - WDM - INFO - ====== WebDriver manager ======
+  2025-08-20 14:26:00,365 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+  2025-08-20 14:26:00,938 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+  2025-08-20 14:26:01,463 - WDM - INFO - Driver [C:\Users\PC\.wdm\drivers\chromedriver\win64\139.0.7258.138\chromedriver-win32/chromedriver.exe] found in cache
+  2025-08-20 14:26:12,078 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:26:12] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+  2025-08-20 14:26:12,082 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:26:12] "GET /static/style.css HTTP/1.1" 304 -
+  2025-08-20 14:26:12,090 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:26:12] "GET /static/css/style.css HTTP/1.1" 304 -
+  2025-08-20 14:26:51,549 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:26:51] "GET / HTTP/1.1" 200 -
+  2025-08-20 14:26:51,652 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:26:51] "GET /static/style.css HTTP/1.1" 304 -
+  2025-08-20 14:26:51,665 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:26:51] "GET /static/css/style.css HTTP/1.1" 304 -
+  2025-08-20 14:26:51,665 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:26:51] "GET /static/images/pp.png HTTP/1.1" 304 -
+  2025-08-20 14:26:51,673 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:26:51] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+  2025-08-20 14:26:51,683 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:26:51] "GET /static/images/logo.png HTTP/1.1" 304 -
+  İstanbul şehir listesinde mevcut.
+  2025-08-20 14:27:03,053 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:27:03] "GET /dosya_ekle HTTP/1.1" 200 -     
+  2025-08-20 14:27:03,126 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:27:03] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+  2025-08-20 14:27:03,188 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:27:03] "GET /static/style.css HTTP/1.1" 304 -
+  2025-08-20 14:27:03,191 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:27:03] "GET /static/images/pp.png HTTP/1.1" 304 -
+  2025-08-20 14:27:03,191 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:27:03] "GET /static/images/logo.png HTTP/1.1" 304 -
+  2025-08-20 14:27:03,191 - werkzeug - INFO - 127.0.0.1 - - [20/Aug/2025 14:27:03] "GET /static/css/style.css HTTP/1.1" 304 -
+  2025-08-20 14:27:04,195 - WDM - INFO - ====== WebDriver manager ======
+  2025-08-20 14:27:05,474 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+  2025-08-20 14:27:06,076 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+  2025-08-20 14:27:06,626 - WDM - INFO - Driver [C:\Users\PC\.wdm\drivers\chromedriver\win64\139.0.7258.138\chromedriver-win32/chromedriver.exe] found in cache
+  UYAP API çağrısı alındı. Filtreler: {'yargi_turu': 'Hukuk', 'yargi_birimi': '', 'dosya_durumu': '', 'start_date': '', 'end_date': '', 'search': ''}
+  UYAP'a bağlanılıyor...
+  2025-08-20 14:27:08,363 - WDM - INFO - ====== WebDriver manager ======
+
+  DevTools listening on ws://127.0.0.1:52120/devtools/browser/6be84cb8-3de6-40ed-a461-ebedae6f55c7
+  2025-08-20 14:27:11,679 - uyap_integration_advanced - INFO - Yeni Chrome session başlatıldı
+  WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+  I0000 00:00:1755689234.521725    4392 voice_transcription.cc:58] Registering VoiceTranscriptionCapability
+  2025-08-20 14:27:14,738 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+  2025-08-20 14:27:15,263 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+  2025-08-20 14:27:15,792 - WDM - INFO - Driver [C:\Users\PC\.wdm\drivers\chromedriver\win64\139.0.7258.138\chromedriver-win32/chromedriver.exe] found in cache
+  [12996:14964:0820/142716.783:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+  [12996:14964:0820/142716.788:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+  Created TensorFlow Lite XNNPACK delegate for CPU.
+  2025-08-20 14:27:24,181 - uyap_integration_advanced - INFO - UYAP'a e-imza ile giriş yapılması bekleniyor...
+  [12996:14964:0820/142740.843:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+  Attempting to use a delegate that only supports static-sized tensors with a graph that has dynamic-sized tensors (tensor#58 is a dynamic-sized tensor).
+  2025-08-20 14:27:54,687 - uyap_integration_advanced - WARNING - Giriş durumu kontrol edilemedi
+  2025-08-20 14:28:18,353 - WDM - INFO - ====== WebDriver manager ======
+  2025-08-20 14:28:19,368 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+  2025-08-20 14:28:19,942 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+  2025-08-20 14:28:20,505 - WDM - INFO - Driver [C:\Users\PC\.wdm\drivers\chromedriver\win64\139.0.7258.138\chromedriver-win32/chromedriver.exe] found in cache
+
+  DevTools listening on ws://127.0.0.1:56793/devtools/browser/8089a9d1-9113-466e-8bd9-ff9e062cc562
+  2025-08-20 14:28:22,482 - uyap_integration_advanced - INFO - Yeni Chrome session başlatıldı
+  WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+  I0000 00:00:1755689304.365296   19484 voice_transcription.cc:58] Registering VoiceTranscriptionCapability
+  [3856:13056:0820/142824.730:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+  [3856:13056:0820/142824.743:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+  2025-08-20 14:28:26,885 - uyap_integration_advanced - WARNING - Giriş durumu kontrol edilemedi
+  2025-08-20 14:28:31,449 - urllib3.connectionpool - WARNING - Connection pool is full, discarding connection: localhost. Connection pool size: 1
+  2025-08-20 14:28:34,439 - uyap_integration_advanced - INFO - UYAP'a e-imza ile giriş yapılması bekleniyor...
+  Created TensorFlow Lite XNNPACK delegate for CPU.
+  [3856:13056:0820/142851.567:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+  Attempting to use a delegate that only supports static-sized tensors with a graph that has dynamic-sized tensors (tensor#58 is a dynamic-sized tensor).
+  2025-08-20 14:29:01,388 - uyap_integration_advanced - WARNING - Giriş durumu kontrol edilemedi
+  2025-08-20 14:29:04,876 - uyap_integration_advanced - WARNING - Giriş durumu kontrol edilemedi
+  2025-08-20 14:29:33,825 - uyap_integration_advanced - WARNING - Giriş durumu kontrol edilemedi
+  2025-08-20 14:29:37,311 - uyap_integration_advanced - WARNING - Giriş durumu kontrol edilemedi
+  [3856:13056:0820/142941.336:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT

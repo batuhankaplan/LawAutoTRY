@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -11,6 +11,12 @@ import json
 from selenium.webdriver.common.keys import Keys
 import os
 import subprocess
+import logging
+from datetime import datetime
+import requests
+from urllib.parse import urljoin
+import re
+from bs4 import BeautifulSoup
 
 class UYAPIntegration:
     def __init__(self):
